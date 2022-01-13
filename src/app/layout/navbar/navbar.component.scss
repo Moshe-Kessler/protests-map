@@ -1,0 +1,23 @@
+.toolbar {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-container {
+  display: flex;
+  color: #5F7BAE;
+}
+
+.logo {
+  position: center;
+  color: white;
+}
+
+.navbar-items {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

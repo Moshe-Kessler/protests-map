@@ -1,0 +1,65 @@
+div.flag-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+mat-card {
+  display: inline-block;
+  text-align: center;
+  width: 85%;
+  margin-top: 10%;
+  max-width: 500px;
+}
+
+.spinner {
+  display: inline-block;
+  text-align: center;
+}
+
+.title {
+  padding-top: 10%;
+  width: 100%;
+  text-align: center;
+  color: #3f51b5;
+  font-size: 22px;
+  padding-bottom: 25px;
+}
+
+.field-full-width {
+  width: 100%;
+  margin: 1%;
+}
+
+.selection-text {
+  text-align: right;
+  width: 100%;
+}
+
+mat-icon.flag-icon {
+  transform: scale(2);
+}
+
+div.submit-button {
+  display: flex;
+  justify-content: center;
+}
+
+button[type="submit"] {
+  margin-top: 5%;
+  margin-bottom: 2%;
+  width: 80%;
+}
+
+.liberty-icon {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  left: calc(50% - 28px);
+  top: -28px;
+  transform: scale(2);
+}

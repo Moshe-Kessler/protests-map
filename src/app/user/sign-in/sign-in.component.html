@@ -1,0 +1,72 @@
+<div class="sign-in-form">
+  <mat-card>
+    <mat-icon class="shield-icon" svgIcon="shield"></mat-icon>
+    <mat-card-title class="title"> Sign In </mat-card-title>
+    <div class="spinner" *ngIf="loading$ | async">
+      <mat-spinner></mat-spinner>
+    </div>
+    <div class="google-button" matRipple>
+      <button type="submit" mat-raised-button (click)="signInWithGoogle()">
+        <mat-icon class="google-icon" svgIcon="google"></mat-icon>
+        SIGN IN WITH GOOGLE
+      </button>
+    </div>
+    <div class="google-button" matRipple>
+      <button type="submit" mat-raised-button (click)="signInAnonymously()">
+        <mat-icon class="anonymous-icon" svgIcon="anonymous"></mat-icon>
+        STAY ANONYMOUS
+      </button>
+    </div>
+    <app-divider text="OR"></app-divider>
+    <form
+      class="form"
+      action="sign-in-form"
+      [formGroup]="signInForm"
+      (ngSubmit)="signInWithEmailAndPassword()"
+    >
+      <mat-form-field class="field-full-width" appearance="fill">
+        <mat-label>Email Address</mat-label>
+        <input
+          type="email"
+          name="email"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+          matInput
+          [errorStateMatcher]="matcher"
+          formControlName="email"
+          required
+        />
+        <mat-hint>Enter your email</mat-hint>
+        <mat-error>Invalid email</mat-error>
+      </mat-form-field>
+      <mat-form-field class="field-full-width" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input
+          name="password"
+          [type]="hide ? 'password' : 'text'"
+          matInput
+          minlength="6"
+          [errorStateMatcher]="matcher"
+          formControlName="password"
+          required
+        />
+        <mat-icon matSuffix (click)="hide = !hide">{{
+          hide ? "visibility" : "visibility_off"
+        }}</mat-icon>
+        <mat-error>Required at least 6 charachters</mat-error>
+        <mat-hint>Enter your password (min 6 charachters)</mat-hint>
+      </mat-form-field>
+      <div class="submit-buttom" matRipple>
+        <button type="submit" mat-raised-button color="primary">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </form>
+    <span> Don't have an account yet? <a href="signup">Sign Up</a> </span>
+    <div *ngIf="error$ | async">
+      <app-error-bar
+        error="{{ error$ | async }}"
+        action="{{ action$ | async }}"
+      ></app-error-bar>
+    </div>
+  </mat-card>
+</div>

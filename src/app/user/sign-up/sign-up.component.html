@@ -1,0 +1,93 @@
+<div class="sign-up-form">
+  <mat-card>
+    <mat-icon class="shield-icon" svgIcon="shield"></mat-icon>
+    <mat-card-title class="title"> Sign Up </mat-card-title>
+    <div class="spinner" *ngIf="loading$ | async">
+      <mat-spinner></mat-spinner>
+    </div>
+    <div class="google-button" matRipple>
+      <button type="submit" mat-raised-button (click)="signUpWithGoogle()">
+        <mat-icon class="google-icon" svgIcon="google"></mat-icon>
+        SIGN UP WITH GOOGLE
+      </button>
+    </div>
+    <div class="google-button" matRipple>
+      <button type="submit" mat-raised-button (click)="signUpAnonymously()">
+        <mat-icon class="anonymous-icon" svgIcon="anonymous"></mat-icon>
+        STAY ANONYMOUS
+      </button>
+    </div>
+    <app-divider text="OR"></app-divider>
+    <form
+      class="form"
+      action="sign-up-form"
+      [formGroup]="signUpForm"
+      (ngSubmit)="signUpWithEmailAndPassword()"
+    >
+      <mat-form-field class="field-full-width" appearance="fill">
+        <mat-label>Email Address</mat-label>
+        <input
+          type="email"
+          name="email"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+          matInput
+          [errorStateMatcher]="matcher"
+          formControlName="email"
+          required
+        />
+        <mat-hint>Enter your email</mat-hint>
+        <mat-error>Invalid email</mat-error>
+      </mat-form-field>
+      <mat-form-field class="field-full-width" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input
+          name="password"
+          [type]="hide ? 'password' : 'text'"
+          matInput
+          minlength="6"
+          [errorStateMatcher]="matcher"
+          formControlName="password"
+          required
+        />
+        <mat-icon matSuffix (click)="hide = !hide">{{
+          hide ? "visibility" : "visibility_off"
+        }}</mat-icon>
+        <mat-error>Required at least 6 charachters</mat-error>
+        <mat-hint>Enter your password (min 6 charachters)</mat-hint>
+      </mat-form-field>
+      <div *ngIf="getPass().length >= 6">
+        <mat-form-field class="field-full-width" appearance="fill">
+          <mat-label>Confirm Password</mat-label>
+          <input
+            name="confirmPassword"
+            [type]="hide ? 'password' : 'text'"
+            pattern="{{ getPass() }}"
+            matInput
+            [errorStateMatcher]="matcher"
+            formControlName="confirmPassword"
+            required
+          />
+          <mat-error *ngIf="isMatch() === false"
+            >Passwords do not match</mat-error
+          >
+          <mat-icon matSuffix (click)="hide = !hide">{{
+            hide ? "visibility" : "visibility_off"
+          }}</mat-icon>
+          <mat-hint>Confirm your password</mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="submit-buttom" matRipple>
+        <button type="submit" mat-raised-button color="primary">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </form>
+    <span> Already have an account? <a href="signin">Sign In</a> </span>
+  </mat-card>
+  <div *ngIf="error$ | async">
+    <app-error-bar
+      error="{{ error$ | async }}"
+      action="{{ action$ | async }}"
+    ></app-error-bar>
+  </div>
+</div>

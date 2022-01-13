@@ -1,0 +1,58 @@
+<div class="flag-form">
+  <mat-card>
+    <mat-icon class="liberty-icon" svgIcon="liberty"></mat-icon>
+    <mat-card-title class="title">Hoist Your Colour</mat-card-title>
+    <form action="flag-form" [formGroup]="flagForm" (ngSubmit)="submit()">
+      <mat-form-field class="field-full-width" appearance="fill">
+        <mat-label>Choose Flag</mat-label>
+        <mat-select formControlName="url" [errorStateMatcher]="matcher">
+          <mat-option
+            class="selection"
+            *ngFor="let flag of flagColors"
+            [value]="flag.url"
+            ><mat-icon class="flag-icon" svgIcon="{{ flag.color }}"></mat-icon
+            ><span class="selection-text">{{ flag.title }}</span></mat-option
+          >
+        </mat-select>
+        <mat-hint>Choose your flag from the list</mat-hint>
+      </mat-form-field>
+    </form>
+    <div class="spinner" *ngIf="loading$ | async">
+      <mat-spinner></mat-spinner>
+    </div>
+    <google-map
+      width="100%"
+      [options]="mapOptions"
+      [center]="mapCenter"
+      (mapClick)="mapClick($event)"
+      ><map-marker-clusterer [imagePath]="imagePath">
+        <map-marker
+          *ngFor="let flag of flags$ | async"
+          [position]="flag.location"
+          [options]="flag.options"
+        ></map-marker>
+        <map-marker
+          *ngFor="let flag of flags"
+          [position]="flag.location"
+          [options]="flag.options"
+        ></map-marker>
+      </map-marker-clusterer>
+    </google-map>
+    <div class="submit-buttom" matRipple>
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        (click)="submit()"
+      >
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+  <div *ngIf="error$ | async">
+    <app-error-bar
+      error="{{ error$ | async }}"
+      action="{{ action$ | async }}"
+    ></app-error-bar>
+  </div>
+</div>

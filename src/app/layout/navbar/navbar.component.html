@@ -1,0 +1,63 @@
+<mat-drawer-container class="toolbar">
+  <div class="navbar-container">
+    <mat-toolbar color="primary" class="navbar">
+      <div class="navbar-items">
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <a class="logo" href="/">Protests Map</a>
+        <div class="sign-out" *ngIf="isLoggedIn$ | async">
+          <a color="accent" (click)="signOut()" matTooltip="Log out">
+            <mat-icon>logout</mat-icon>
+          </a>
+        </div>
+        <div *ngIf="(isLoggedIn$ | async) === false">
+          <button mat-icon-button [matMenuTriggerFor]="help">
+            <mat-icon class="more-vert">more_vert</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div>
+        <mat-menu #help="matMenu">
+          <button mat-menu-item>Help</button>
+          <button mat-menu-item>FAQ</button>
+        </mat-menu>
+      </div>
+    </mat-toolbar>
+    <span class="spacer"></span>
+  </div>
+</mat-drawer-container>
+<mat-drawer #sidenav class="sidenav" mode="push">
+  <mat-nav-list>
+    <mat-list-item></mat-list-item>
+    <mat-list-item>
+      <a
+        mat-list-item
+        *ngIf="(isLoggedIn$ | async) === false; else hoistBlock"
+        (click)="sidenav.toggle()"
+        href="signin"
+      >
+        Sign In
+      </a>
+      <ng-template (click)="sidenav.toggle()" #hoistBlock>
+        <a mat-list-item href="/">Hoist a flag</a>
+      </ng-template>
+    </mat-list-item>
+    <mat-list-item>
+      <a
+        mat-list-item
+        *ngIf="(isLoggedIn$ | async) === false; else flagsBlock"
+        (click)="sidenav.toggle()"
+        href="signup"
+      >
+        Sign Up
+      </a>
+      <ng-template (click)="sidenav.toggle()" #flagsBlock>
+        <a mat-list-item href="flags">Flags</a>
+      </ng-template>
+    </mat-list-item>
+    <mat-list-item>
+      <a mat-list-item (click)="sidenav.toggle()" mat-list-item>Close</a>
+    </mat-list-item>
+  </mat-nav-list>
+</mat-drawer>

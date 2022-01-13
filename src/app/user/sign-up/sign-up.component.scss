@@ -1,0 +1,63 @@
+div.sign-up-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+mat-card {
+  display: inline-block;
+  text-align: center;
+  width: 80%;
+  margin-top: 10%;
+  max-width: 500px;
+}
+
+.spinner {
+  display: inline-block;
+  text-align: center;
+}
+
+.shield-icon {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  left: calc(50% - 28px);
+  top: -28px;
+}
+
+.title {
+  padding-top: 15px;
+  width: 100%;
+  text-align: center;
+  color: #3f51b5;
+  font-size: 22px;
+  padding-bottom: 25px;
+}
+
+.google-icon {
+  padding-right: 10px;
+}
+
+.anonymous-icon {
+  padding-right: 29px;
+}
+
+.field-full-width {
+  width: 85%;
+  margin: 1%;
+}
+
+div.submit-button {
+  display: flex;
+  justify-content: center;
+}
+
+button[type="submit"] {
+  margin-top: 5%;
+  margin-bottom: 2%;
+  width: 80%;
+}

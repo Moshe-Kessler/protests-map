@@ -1,0 +1,64 @@
+<div class="flags-page">
+  <mat-card>
+    <mat-icon class="liberty-icon" svgIcon="liberty"></mat-icon>
+    <mat-card-title class="title">{{ title }}</mat-card-title>
+    <mat-card-subtitle
+      >Unique users: {{ totalUniqueUsers$ | async }}</mat-card-subtitle
+    >
+    <div class="spinner" *ngIf="loading$ | async">
+      <mat-spinner></mat-spinner>
+    </div>
+    <google-map width="100%" [options]="mapOptions" [center]="center">
+      <map-marker-clusterer [imagePath]="imagePath">
+        <map-marker
+          *ngFor="let flag of flags$ | async"
+          [position]="flag.location"
+          [options]="flag.options"
+        ></map-marker>
+      </map-marker-clusterer>
+    </google-map>
+    <div class="float-button" *ngIf="hasLiveFlag$ | async; else noLiveFlag">
+      <button
+        mat-fab
+        color="accent"
+        onclick="location.href = '/'"
+        matTooltip="Update your live flag"
+      >
+        <mat-icon>flag</mat-icon>
+      </button>
+    </div>
+    <ng-template #noLiveFlag>
+      <div class="float-button">
+        <button
+          mat-fab
+          color="accent"
+          onclick="location.href = '/'"
+          matTooltip="Hoist a flag"
+        >
+          <mat-icon>flag</mat-icon>
+        </button>
+      </div>
+    </ng-template>
+    <mat-button-toggle-group
+      class="toggle-group"
+      #group="matButtonToggleGroup"
+      value="all"
+    >
+      <mat-button-toggle (click)="getMyFlags()" value="myflags"
+        >My Flags {{ totalUserFlags$ | async }}</mat-button-toggle
+      >
+      <mat-button-toggle (click)="getLiveFlags()" value="live"
+        >Live Flags {{ totalLiveFlags$ | async }}</mat-button-toggle
+      >
+      <mat-button-toggle (click)="ngOnInit()" value="all"
+        >All Flags {{ totalFlags$ | async }}</mat-button-toggle
+      >
+    </mat-button-toggle-group>
+  </mat-card>
+  <div *ngIf="error$ | async">
+    <app-error-bar
+      error="{{ error$ | async }}"
+      action="{{ action$ | async }}"
+    ></app-error-bar>
+  </div>
+</div>

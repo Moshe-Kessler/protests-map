@@ -1,0 +1,49 @@
+div.flags-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+mat-card {
+  display: inline-block;
+  text-align: center;
+  width: 85%;
+  margin-top: 10%;
+  max-width: 500px;
+}
+
+.title {
+  padding-top: 10%;
+  width: 100%;
+  text-align: center;
+  color: #3f51b5;
+  font-size: 22px;
+}
+
+.spinner {
+  display: inline-block;
+  text-align: center;
+}
+
+.toggle-group {
+  margin-top: 5%;
+}
+
+.float-button {
+  position: absolute;
+  top: 17%;
+  right: 8%;
+}
+
+.liberty-icon {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  left: calc(50% - 28px);
+  top: -28px;
+  transform: scale(2);
+}
