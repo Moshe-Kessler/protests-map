@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Flag } from '../flag';
 import { FlagService } from '../flag.service';
-import { Observable } from 'rxjs';
+import type { Observable } from 'rxjs';
 import mapOptions from '../flag-form/mapOptions';
 
 @Component({

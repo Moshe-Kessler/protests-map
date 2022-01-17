@@ -6,12 +6,6 @@ export interface FlagState {
   flags: Flag[];
   myFlags: Flag[];
   liveFlags: Flag[];
-  timeFilter?: {
-    createdAt: number;
-  };
-  colorFilter?: {
-    url: string;
-  };
   hasLiveFlag?: boolean;
   totalFlags: number;
   totalLiveFlags: number;

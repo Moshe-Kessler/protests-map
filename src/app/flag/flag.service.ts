@@ -2,7 +2,6 @@ import { Flag } from './flag';
 import { FlagFirestore } from './flag.firestore';
 import { FlagPagestore } from './flag.pagestore';
 import { Injectable } from '@angular/core';
-import { UserService } from '../user/user.service';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -12,8 +11,7 @@ export class FlagService {
   uid = this.getUid();
   constructor(
     private firestore: FlagFirestore,
-    private pagestore: FlagPagestore,
-    private userServcie: UserService
+    private pagestore: FlagPagestore
   ) {
     this.firestore
       .collection$()
@@ -125,7 +123,7 @@ export class FlagService {
       );
     }
   }
-  async update(flag: Flag) {
+  private async update(flag: Flag) {
     this.pagestore.patch(
       { loading: true, formStatus: 'saving' },
       'updating flag'
@@ -151,13 +149,13 @@ export class FlagService {
       );
     }
   }
-  getLiveFlags(flags: Flag[]) {
+  private getLiveFlags(flags: Flag[]) {
     return flags.filter(
       (flag) => Date.now() - flag.createdAt! < 60 * 60 * 1000
     );
   }
 
-  getHasLiveFlags(flags: Flag[]) {
+  private getHasLiveFlags(flags: Flag[]) {
     return (
       flags.filter(
         (flag) =>
@@ -166,12 +164,12 @@ export class FlagService {
     );
   }
 
-  getTotalLiveFlags(flags: Flag[]) {
+  private getTotalLiveFlags(flags: Flag[]) {
     return flags.filter((flag) => Date.now() - flag.createdAt! < 60 * 60 * 1000)
       .length;
   }
 
-  getTotalUniqueUsers(flags: Flag[]) {
+  private getTotalUniqueUsers(flags: Flag[]) {
     const uniqueUsers = [...new Set(flags.map((flag) => flag.uid))];
     return uniqueUsers.length;
   }
