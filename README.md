@@ -1,4 +1,4 @@
-# VDemo
+# Protests Map
 
 Online app available at [vdemo.kessler.tech](https://vdemo.kessler.tech).
 
