@@ -47,11 +47,15 @@ export abstract class FirestoreAbstract<T> {
   }
 
   async update(value: T, id: string) {
-    await this.collection.doc(id).set(Object.assign({}, { id }, value));
-    if (!environment.production) {
-      console.groupCollapsed(`Firestore Service [${this.basePath}] [update]`);
-      console.log('[Id]', id, value);
-      console.groupEnd();
+    try {
+      await this.collection.doc(id).set(Object.assign({}, { id }, value));
+      if (!environment.production) {
+        console.groupCollapsed(`Firestore Service [${this.basePath}] [update]`);
+        console.log('[Id]', id, value);
+        console.groupEnd();
+      }
+    } catch (error) {
+      throw new Error(error as string);
     }
   }
 
@@ -72,11 +76,15 @@ export abstract class FirestoreAbstract<T> {
   }
 
   async delete(id: string) {
-    const _ = await this.collection.doc(id).delete();
-    if (!environment.production) {
-      console.groupCollapsed(`Firestore Service [${this.basePath}] [delete]`);
-      console.log('[Id]', id);
-      console.groupEnd();
+    try {
+      await this.collection.doc(id).delete();
+      if (!environment.production) {
+        console.groupCollapsed(`Firestore Service [${this.basePath}] [delete]`);
+        console.log('[Id]', id);
+        console.groupEnd();
+      }
+    } catch (error) {
+      throw new Error(error as string);
     }
   }
 
